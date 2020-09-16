@@ -13,14 +13,11 @@ class UsersController extends Controller
 {
     public function store(UserRequest $request)
     {
-        dd($request);
         $user = User::create([
             'name' => $request->name,
             'phone' => $request->phone,
             'password' => $request->password,
         ]);
-
-
         return new UserResource($user);
     }
 }

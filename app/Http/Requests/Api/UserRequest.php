@@ -16,7 +16,7 @@ class UserRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name',
+            'name' => 'required|between:2,25|unique:users,name',
             'password' => 'required|alpha_dash|min:6',
         ];
     }
