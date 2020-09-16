@@ -22,8 +22,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /**
  * v1前缀命名组，api默认有，所以真实路径为localhost.com/api/v1
  */
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
     Route::get('login', function () {
         return 'aaa';
     });
+    // 用户注册
+    Route::post('users', 'UsersController@store')->name('users.store');
 });
