@@ -23,9 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * v1前缀命名组，api默认有，所以真实路径为localhost.com/api/v1
  */
 Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
-    Route::get('login', function () {
-        return 'aaa';
-    });
     // 用户注册
     Route::post('users', 'UsersController@store')->name('users.store');
     //第三方登陆
@@ -36,10 +33,19 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
     // 登录
     Route::post('authorizations', 'AuthorizationsController@store')
         ->name('api.authorizations.store');
-    // 刷新token
     Route::put('authorizations/current', 'AuthorizationsController@update')
         ->name('authorizations.update');
-    // 删除token
-    Route::delete('authorizations/current', 'AuthorizationsController@destroy')
-        ->name('authorizations.destroy');
+    //其他登陆用户
+    // 某个用户的详情
+    Route::get('users/{user}', 'UsersController@show')
+        ->name('users.show');
+    // 刷新token
+    Route::middleware('auth:api')->group(function () {
+        // 删除token
+        Route::delete('authorizations/current', 'AuthorizationsController@destroy')
+            ->name('authorizations.destroy');
+        // 当前登录用户信息
+        Route::get('user', 'UsersController@me')
+            ->name('user.show');
+    });
 });

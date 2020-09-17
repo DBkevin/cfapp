@@ -18,6 +18,14 @@ class UsersController extends Controller
             'phone' => $request->phone,
             'password' => bcrypt($request->password),
         ]);
+        return (new UserResource($user))->showSensitiveFields();
+    }
+    public function me(Request $request)
+    {
+        return (new UserResource($request->user()))->showSensitiveFields();
+    }
+    public function show(User $user, Request $request)
+    {
         return new UserResource($user);
     }
 }
