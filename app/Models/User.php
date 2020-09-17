@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'phone', 'introduction'
+        'name', 'email', 'password', 'avatar', 'phone', 'introduction',  'weixin_openid', 'weixin_unionid', 'nick_name'
     ];
 
     /**
@@ -35,5 +35,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_bind_weixin' => 'boolean'
     ];
 }
