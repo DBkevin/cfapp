@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Http\Requests\Api\UserRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Auth\AuthenticationException;
+use App\Models\Image;
 
 class UsersController extends Controller
 {
@@ -27,5 +28,16 @@ class UsersController extends Controller
     public function show(User $user, Request $request)
     {
         return new UserResource($user);
+    }
+    public function update(UserRequest $request)
+    {
+        $user = $request->user();
+        $attributes = $request->only(['name', 'email', 'introduction']);
+        if ($request->avarat_image_id) {
+            $image = Image::find($request->avarat_image_id);
+            $attributes['avatar'] = $image->path;
+        }
+        $user->update($attributes);
+        return (new UserResource($user))->showSensitiveFields();
     }
 }

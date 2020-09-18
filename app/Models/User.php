@@ -57,4 +57,13 @@ class User extends Authenticatable  implements JWTSubject
     {
         return [];
     }
+    /**
+     * 与图片的1对多关联
+     *
+     * @return void
+     */
+    public function images()
+    {
+        return $this->belongsToMany(Image::class);
+    }
 }
