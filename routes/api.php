@@ -42,6 +42,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
     //公司列表
     Route::get('campany', 'CompanyController@index')
         ->name('campanyList');
+    //咖啡
+    Route::get('cafes', 'CafeController@index')->name('cafes.list');
     /**
      *需要登陆的
      */
@@ -61,5 +63,6 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
         //新建公司
         Route::post('campany', 'CompanyController@store')
             ->name('campany.create');
+        Route::post('cafes', 'CafeController@store')->name('cafes.store');
     });
 });

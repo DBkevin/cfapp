@@ -21,7 +21,7 @@ class CreateCafesTable extends Migration
             $table->string("state")->comment("所在省份");
             $table->string('tel')->comment('店铺联系电话');
             $table->string('description')->nullable()->default("这个店铺没有留下简介")->comment('店铺简介');
-            $table->decimal('longitude', 11, 8)->nullabl()->comment('店铺地址转换后的经度');
+            $table->decimal('longitude', 11, 8)->nullable()->comment('店铺地址转换后的经度');
             $table->decimal('latitude', 11, 8)->nullable()->comment("店铺地址转换后的维度");
             $table->timestamps();
         });

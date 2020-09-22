@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Cafe;
 use Illuminate\Http\Request;
+use App\Http\Requests\Api\CafeRequest;
+use App\Http\Resources\CafeResource;
 
 class CafeController extends Controller
 {
@@ -14,7 +16,8 @@ class CafeController extends Controller
      */
     public function index()
     {
-        //
+        $cafes = Cafe::all();
+        return new CafeResource($cafes);
     }
 
     /**
@@ -33,9 +36,22 @@ class CafeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CafeRequest $request)
     {
         //
+        $cafe = new Cafe();
+        $cafe->name = $request->name;
+        $cafe->address = $request->address;
+        $cafe->city = $request->city;
+        $cafe->state = $request->state;
+        $cafe->tel = $request->tel;
+        $cafe->description = $request->description ? $request->description : '';
+        $cafe->companies_id = $request->companies_id;
+        $methods = $request->methods;
+        $cafe->save();
+        $cafe->methods()->attach($methods);
+        $cafe = Cafe::where('id', $cafe->id)->with('methods')->get();
+        return new CafeResource($cafe);
     }
 
     /**
