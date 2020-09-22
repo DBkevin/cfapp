@@ -33,13 +33,18 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
     // 登录
     Route::post('authorizations', 'AuthorizationsController@store')
         ->name('api.authorizations.store');
+    //书信token
     Route::put('authorizations/current', 'AuthorizationsController@update')
         ->name('authorizations.update');
-    //其他登陆用户
     // 某个用户的详情
     Route::get('users/{user}', 'UsersController@show')
         ->name('users.show');
-    // 刷新token
+    //公司列表
+    Route::get('campany', 'CompanyController@index')
+        ->name('campanyList');
+    /**
+     *需要登陆的
+     */
     Route::middleware('auth:api')->group(function () {
         // 删除token
         Route::delete('authorizations/current', 'AuthorizationsController@destroy')
@@ -53,5 +58,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
         //编辑登陆用户信息  //patch 部分修改资源，提供部分资源信息。
         Route::patch('user', 'UsersController@update')
             ->name('user.update');
+        //新建公司
+        Route::post('campany', 'CompanyController@store')
+            ->name('campany.create');
     });
 });
