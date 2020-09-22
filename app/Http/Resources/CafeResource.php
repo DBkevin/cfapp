@@ -14,6 +14,7 @@ class CafeResource extends JsonResource
      */
     public function toArray($request)
     {
+        $this->resource->makeHidden('methods');
         return parent::toArray($request);
     }
 }

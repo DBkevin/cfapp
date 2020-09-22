@@ -44,6 +44,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
         ->name('campanyList');
     //咖啡
     Route::get('cafes', 'CafeController@index')->name('cafes.list');
+    Route::get('cafes/{cafe}', 'CafeController@show')->name('cafes.show');
+
     /**
      *需要登陆的
      */

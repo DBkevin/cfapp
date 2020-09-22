@@ -62,7 +62,16 @@ class CafeController extends Controller
      */
     public function show(Cafe $cafe)
     {
-        //
+        $cafe = Cafe::where('id', $cafe->id)->with('methods')->first();
+        $MethodsName = [];
+        foreach ($cafe->methods as $method) {
+            $temp['id'] = $method['id'];
+            $temp['method'] = $method['method'];
+            array_push($MethodsName, $temp);
+            $temp = null;
+        }
+        $cafe->MethodsNmae = $MethodsName;
+        return new CafeResource($cafe);
     }
 
     /**
