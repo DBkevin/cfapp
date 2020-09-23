@@ -13,6 +13,10 @@ class Cafe extends Model
     }
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, 'companies_id', 'id');
+    }
+    public function images()
+    {
+        return $this->belongsToMany(Image::class, 'images_cafes', 'cafes_id', 'images_id');
     }
 }

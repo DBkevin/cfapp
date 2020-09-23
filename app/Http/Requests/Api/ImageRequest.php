@@ -15,7 +15,7 @@ class ImageRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'type' => 'required|string|in:avatar,topic',
+            'type' => 'required|string|in:avatar,topic,cafe,company',
         ];
         if ($this->type == 'avatar') {
             $rules['image'] = 'required|mimes:jpeg,bmp,png,gif|dimensions:min_width=200,min_height=200';

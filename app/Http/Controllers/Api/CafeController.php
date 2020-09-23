@@ -21,15 +21,6 @@ class CafeController extends Controller
         return new CafeResource($cafes);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -54,9 +45,10 @@ class CafeController extends Controller
         $methods = $request->methods;
         $cafe->save();
         $cafe->methods()->attach($methods);
+        $images = $request->images;
+        $cafe->images()->attach($images);
         return new CafeResource($cafe);
     }
-
     /**
      * Display the specified resource.
      *
@@ -65,7 +57,7 @@ class CafeController extends Controller
      */
     public function show(Cafe $cafe)
     {
-        $cafe = Cafe::where('id', $cafe->id)->with('methods')->first();
+        $cafe = Cafe::where('id', $cafe->id)->with(['methods', 'images'])->first();
         $MethodsName = [];
         foreach ($cafe->methods as $method) {
             $temp['id'] = $method['id'];
@@ -78,26 +70,18 @@ class CafeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cafe  $cafe
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cafe $cafe)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Cafe  $cafe
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cafe $cafe)
+    public function update(CafeRequest $request, Cafe $cafe)
     {
-        //
+        $cafe = Cafe::where('id', $cafe->id)->first();
+        $cafe->images()->sync($request->images);
+
+        dd($cafe->images());
     }
 
     /**
