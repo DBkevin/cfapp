@@ -11,4 +11,8 @@ class Cafe extends Model
     {
         return $this->belongsToMany(BrewMethod::class, 'cafes_brew_methods', 'cafes_id', 'brew_methods_id');
     }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

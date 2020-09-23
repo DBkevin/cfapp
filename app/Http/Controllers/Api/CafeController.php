@@ -6,6 +6,7 @@ use App\Models\Cafe;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\CafeRequest;
 use App\Http\Resources\CafeResource;
+use App\Handlers\GaodeMapsHandler;
 
 class CafeController extends Controller
 {
@@ -47,10 +48,12 @@ class CafeController extends Controller
         $cafe->tel = $request->tel;
         $cafe->description = $request->description ? $request->description : '';
         $cafe->companies_id = $request->companies_id;
+        $coordinates = GaodeMapsHandler::geocodeAddress($cafe->address, $cafe->city, $cafe->state);
+        $cafe->latitude = $coordinates['lat'];
+        $cafe->longitude = $coordinates['lng'];
         $methods = $request->methods;
         $cafe->save();
         $cafe->methods()->attach($methods);
-        $cafe = Cafe::where('id', $cafe->id)->with('methods')->get();
         return new CafeResource($cafe);
     }
 

@@ -28,7 +28,6 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request)
     {
-
         $company = new Company;
         $company->name = $request->name;
         $company->address = $request->address;
@@ -37,11 +36,7 @@ class CompanyController extends Controller
         $company->users_id = $request->user()->id;
         $company->save();
         return (new CompanyResource($company));
-        //
     }
-
-
-
     /**
      * Display the specified resource.
      *
@@ -50,9 +45,9 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        $company = Company::where('id', $company->id)->with('cafes.methods')->first();
+        return new CompanyResource($company);
     }
-
     /**
      * Show the form for editing the specified resource.
      *

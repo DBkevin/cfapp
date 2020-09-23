@@ -34,5 +34,8 @@ return [
         'client_secret' => env('WEIXIN_SECRET'),
         'redirect' => env('WEIXIN_REDIRECT_URI'),
     ],
+    'gaode' => [
+        'ws_api_key' => env('GAODE_MAPS_WS_API_KEY'),
+    ]
 
 ];

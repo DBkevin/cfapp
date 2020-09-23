@@ -25,6 +25,6 @@ class Company extends Model
      */
     public function cafes()
     {
-        return $this->hasMany(Cafe::class);
+        return $this->hasMany(Cafe::class, 'companies_id');
     }
 }

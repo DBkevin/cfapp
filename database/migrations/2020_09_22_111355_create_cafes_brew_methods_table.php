@@ -14,8 +14,8 @@ class CreateCafesBrewMethodsTable extends Migration
     public function up()
     {
         Schema::create('cafes_brew_methods', function (Blueprint $table) {
-            $table->foreignId('cafes_id')->constrained();;
-            $table->foreignId('brew_methods_id')->constrained();;
+            $table->foreignId('cafes_id')->constrained()->onDelete('cascade');
+            $table->foreignId('brew_methods_id')->constrained()->onDelete('cascade');
         });
     }
 

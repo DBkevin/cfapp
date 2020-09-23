@@ -40,8 +40,9 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
     Route::get('users/{user}', 'UsersController@show')
         ->name('users.show');
     //公司列表
-    Route::get('campany', 'CompanyController@index')
-        ->name('campanyList');
+    Route::get('company', 'CompanyController@index')
+        ->name('companyList');
+    Route::get("company/{company}", 'CompanyController@show')->name('company.show');
     //咖啡
     Route::get('cafes', 'CafeController@index')->name('cafes.list');
     Route::get('cafes/{cafe}', 'CafeController@show')->name('cafes.show');
@@ -63,8 +64,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
         Route::patch('user', 'UsersController@update')
             ->name('user.update');
         //新建公司
-        Route::post('campany', 'CompanyController@store')
-            ->name('campany.create');
+        Route::post('company', 'CompanyController@store')
+            ->name('company.create');
         Route::post('cafes', 'CafeController@store')->name('cafes.store');
     });
 });
