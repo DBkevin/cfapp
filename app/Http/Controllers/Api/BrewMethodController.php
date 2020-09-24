@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Api\BrewMethod;
+use App\Models\BrewMethod;
 use Illuminate\Http\Request;
+use App\Http\Requests\Api\BrewMethodsRequest;
+use App\Http\Resources\BrewMethodsResource;
 
 class BrewMethodController extends Controller
 {
@@ -18,46 +20,18 @@ class BrewMethodController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BrewMethodsRequest $request)
     {
-        //
-    }
+        $method = new BrewMethod();
+        $method->method = $request->method;
+        $method->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Api\BrewMethod  $brewMethod
-     * @return \Illuminate\Http\Response
-     */
-    public function show(BrewMethod $brewMethod)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Api\BrewMethod  $brewMethod
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(BrewMethod $brewMethod)
-    {
-        //
+        return new BrewMethodsResource($method);
     }
 
     /**

@@ -69,5 +69,7 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
         //新建店铺
         Route::post('cafes', 'CafeController@store')->name('cafes.store');
         Route::patch('cafes/{cafe}', 'CafeController@update')->name("cafes.update");
+        //新建冲泡方法
+        Route::post('methods', 'BrewMethodController@store')->name('methods.store');
     });
 });
