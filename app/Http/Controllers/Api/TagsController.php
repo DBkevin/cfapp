@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use App\Http\Resources\TagsResource;
+use App\Http\Requests\Api\TagsRequest;
 
-class TagController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::all();
+        return  new TagsResource($tags);
     }
 
     /**
@@ -23,9 +26,12 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TagsRequest $request)
     {
-        //
+        $tag = new Tag();
+        $tag->name = $request->name;
+        $tag->save();
+        return new  TagsResource($tag);
     }
     /**
      * Remove the specified resource from storage.
@@ -35,6 +41,8 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag = Tag::where('id', $tag->id)->first();
+        $tag->delete();
+        return response()->json(null, 204);
     }
 }

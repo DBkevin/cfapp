@@ -46,7 +46,8 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
     //咖啡
     Route::get('cafes', 'CafeController@index')->name('cafes.list');
     Route::get('cafes/{cafe}', 'CafeController@show')->name('cafes.show');
-
+    //tag
+    Route::get('tags', 'TagsController@index')->name('tags.index');
     /**
      *需要登陆的
      */
@@ -73,5 +74,9 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
         Route::post('methods', 'BrewMethodController@store')->name('methods.store');
         //更新冲泡方法
         Route::patch('methods/{method}', 'BrewMethodController@update')->name('methods.store');
+        //新增Tag
+        Route::post('tags', 'TagsController@store')->name('tags.store');
+        //删除tag
+        Route::delete('tags/{tag}', 'TagsController@destroy')->name('tags.destroy');
     });
 });
