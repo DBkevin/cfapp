@@ -71,5 +71,7 @@ Route::prefix('v1')->namespace('Api')->name('api.v1')->group(function () {
         Route::patch('cafes/{cafe}', 'CafeController@update')->name("cafes.update");
         //新建冲泡方法
         Route::post('methods', 'BrewMethodController@store')->name('methods.store');
+        //更新冲泡方法
+        Route::patch('methods/{method}', 'BrewMethodController@update')->name('methods.store');
     });
 });

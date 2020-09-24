@@ -41,9 +41,14 @@ class BrewMethodController extends Controller
      * @param  \App\Api\BrewMethod  $brewMethod
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BrewMethod $brewMethod)
+    public function update(BrewMethodsRequest $request, BrewMethod $method)
     {
         //
+        $method = BrewMethod::where('id', $method->id)->first();
+        $method->method = $request->method;
+        $method->update();
+
+        return new BrewMethodsResource($method);
     }
 
     /**
