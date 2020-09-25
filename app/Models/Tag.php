@@ -11,4 +11,8 @@ class Tag extends Model
         'name',
     ];
     public $timestamps = false;
+    public function cafes()
+    {
+        return $this->belongsToMany(Cafe::class, 'cafes_tags', 'tags_id', 'cafes_id');
+    }
 }

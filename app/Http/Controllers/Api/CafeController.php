@@ -47,6 +47,10 @@ class CafeController extends Controller
         $cafe->methods()->attach($methods);
         $images = $request->images;
         $cafe->images()->attach($images);
+        $tags = $request->tags ?? false;
+        if ($tags) {
+            $cafe->tags()->attach($tags);
+        }
         return new CafeResource($cafe);
     }
     /**
@@ -57,7 +61,7 @@ class CafeController extends Controller
      */
     public function show(Cafe $cafe)
     {
-        $cafe = Cafe::where('id', $cafe->id)->with(['methods', 'images'])->first();
+        $cafe = Cafe::where('id', $cafe->id)->with(['methods', 'images', 'tags'])->first();
         $MethodsName = [];
         foreach ($cafe->methods as $method) {
             $temp['id'] = $method['id'];
@@ -80,8 +84,21 @@ class CafeController extends Controller
     {
         $cafe = Cafe::where('id', $cafe->id)->first();
         $cafe->images()->sync($request->images);
-
-        dd($cafe->images());
+        $cafe->methods()->sync($request->methods);
+        $cafe->tags()->sync($request->tags);
+        $up = [];
+        $up['description'] = $request->description ?? false;
+        $up['name'] = $request->name ?? false;
+        $up['address'] = $request->address ?? false;
+        $up['city'] = $request->city ?? false;
+        $up['state'] = $request->state ?? false;
+        foreach ($up as $k => $v) {
+            if ($k) {
+                $cafe->$k = $v;
+            }
+        }
+        $cafe->update();
+        return new CafeResource($cafe);
     }
 
     /**
@@ -92,6 +109,5 @@ class CafeController extends Controller
      */
     public function destroy(Cafe $cafe)
     {
-        //
     }
 }

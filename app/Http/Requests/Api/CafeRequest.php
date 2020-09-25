@@ -31,6 +31,7 @@ class CafeRequest extends FormRequest
                     'images.*.images_id' => 'required|nullable|exists:images,id',
                     'description' => 'nullable|between:1,200',
                     'methods.*.brew_methods_id' => 'required|exists:brew_methods,id',
+                    'tags.*.tags_id' => 'exists:tags,id',
                 ];
                 break;
             case 'PATCH':
@@ -47,6 +48,7 @@ class CafeRequest extends FormRequest
                     'images.*.images_id' => 'required|exists:images,id',
                     'description' => 'nullable|between:1,200',
                     'methods.*.brew_methods_id' => 'required|nullable|exists:brew_methods,id',
+                    'tags.*.tags_id' => 'exists:tags,id',
                 ];
                 break;
         }
@@ -55,7 +57,8 @@ class CafeRequest extends FormRequest
     {
         return [
             'methods.*.brew_methods_id' => '您选择的冲泡方法',
-            'methods.*.images_id' => "图片选择错误",
+            'images.*.images_id' => "图片选择错误",
+            'tags.*.tags_id' => '选择的标签'
         ];
     }
 }

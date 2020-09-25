@@ -19,4 +19,8 @@ class Cafe extends Model
     {
         return $this->belongsToMany(Image::class, 'images_cafes', 'cafes_id', 'images_id');
     }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'cafes_tags', 'cafes_id', "tags_id");
+    }
 }
